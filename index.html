@@ -19,6 +19,7 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
+    /* ⭐ Звёздный фон */
     .stars {
       position: absolute;
       width: 100%;
@@ -42,45 +43,40 @@
 
     /* 🎵 Плеер */
     .player {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.08);
       backdrop-filter: blur(12px);
       border-radius: 15px;
       padding: 12px 20px;
-      width: 300px;
+      width: 320px;
       color: white;
-      text-align: left;
       box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .player-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .track-title {
       font-size: 16px;
       font-weight: bold;
-      margin-bottom: 5px;
     }
 
-    .progress-container {
-      position: relative;
-      height: 6px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .progress {
-      position: absolute;
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #6a5acd, #ff69b4);
-      border-radius: 3px;
-      transition: width 0.2s linear;
-    }
-
-    .time {
+    /* 📊 Эквалайзер */
+    .eq {
       display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #bbb;
-      margin-top: 4px;
+      gap: 3px;
+      align-items: flex-end;
+    }
+    .eq .bar {
+      width: 4px;
+      height: 40px;
+      background: linear-gradient(180deg,#6a5acd,#ff69b4);
+      border-radius: 2px;
     }
 
     /* 🪐 Карточка профиля */
@@ -104,6 +100,7 @@
       margin: auto;
     }
 
+    /* Облака вокруг */
     .avatar-wrapper::before {
       content: "";
       position: absolute;
@@ -168,14 +165,21 @@
   <div class="wrapper">
     <!-- 🎶 Плеер -->
     <div class="player">
-      <div class="track-title">тёмный принц — overdose</div>
-      <div class="progress-container">
-        <div class="progress" id="progress"></div>
+      <div class="player-header">
+        <div class="eq">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <div class="track-title">тёмный принц — overdose</div>
       </div>
-      <div class="time">
-        <span id="currentTime">0:00</span>
-        <span id="duration">2:45</span>
-      </div>
+
+      <!-- SoundCloud embed -->
+      <iframe width="100%" height="80" scrolling="no" frameborder="no"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/eternita/tyomnyy-prints-overdose&color=%236a5acd&auto_play=false&show_artwork=false">
+      </iframe>
     </div>
 
     <!-- 🪐 Карточка -->
@@ -194,7 +198,6 @@
     tg.expand();
 
     const user = tg.initDataUnsafe?.user;
-
     if (user) {
       document.getElementById("username").innerText =
         user.username ? `@${user.username}` : `${user.first_name} ${user.last_name || ''}`;
@@ -206,24 +209,16 @@
       }
     }
 
-    // === 🎶 Прогресс бар (фейковый плеер) ===
-    let current = 0;
-    const duration = 165; // 2:45 в секундах
-    const progressEl = document.getElementById("progress");
-    const currentTimeEl = document.getElementById("currentTime");
+    // 📊 Эквалайзер-анимация
+    const bars = document.querySelectorAll('.eq .bar');
+    bars.forEach((bar, i) => {
+      bar.animate(
+        [{ height: '20%' }, { height: '100%' }, { height: '20%' }],
+        { duration: 800 + i * 120, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' }
+      );
+    });
 
-    setInterval(() => {
-      if (current < duration) {
-        current++;
-        let minutes = Math.floor(current / 60);
-        let seconds = current % 60;
-        if (seconds < 10) seconds = "0" + seconds;
-        currentTimeEl.textContent = `${minutes}:${seconds}`;
-        progressEl.style.width = `${(current / duration) * 100}%`;
-      }
-    }, 1000);
-
-    // === ✨ Партиклы в аватарке ===
+    // ✨ Партиклы в аватарке
     const canvas = document.getElementById("particles");
     const ctx = canvas.getContext("2d");
     const w = canvas.width = 110;
