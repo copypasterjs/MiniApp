@@ -19,6 +19,7 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
+    /* ⭐ Звёздный фон */
     .stars {
       position: absolute;
       width: 100%;
@@ -71,6 +72,7 @@
       justify-content: center;
       cursor: pointer;
       transition: 0.2s;
+      user-select: none;
     }
     .btn:hover {
       background: rgba(255,255,255,0.2);
@@ -166,7 +168,8 @@
         <span id="currentTime">0:00</span>
         <span id="duration">0:00</span>
       </div>
-      <audio id="audio" src="track.mp3"></audio> <!-- ⚠️ ТУТ НУЖЕН ПРЯМОЙ mp3 -->
+      <!-- 🎵 Твой mp3 рядом с index.html -->
+      <audio id="audio" src="overdose.mp3"></audio>
     </div>
 
     <!-- 🪐 Карточка -->
@@ -211,7 +214,6 @@
         audio.play();
       }
     }
-
     playBtn.addEventListener("click", togglePlay);
 
     audio.addEventListener("play", () => {
@@ -229,7 +231,7 @@
       const { currentTime, duration } = audio;
       progress.style.width = `${(currentTime / duration) * 100}%`;
 
-      // время
+      // текущее время
       let minutes = Math.floor(currentTime / 60);
       let seconds = Math.floor(currentTime % 60);
       if (seconds < 10) seconds = `0${seconds}`;
