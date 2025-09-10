@@ -43,13 +43,26 @@
       margin-top: 60px;
     }
 
-    /* 🔝 Заголовок */
+    /* 🔝 Заголовок с неоном */
     .header {
-      color: white;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: bold;
       margin-top: 20px;
       z-index: 3;
+      background: linear-gradient(90deg, #6a5acd, #00ffff, #ff69b4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: neonFlicker 3s infinite alternate;
+      text-shadow: 
+        0 0 5px rgba(106,90,205,0.8),
+        0 0 10px rgba(106,90,205,0.6),
+        0 0 20px rgba(0,255,255,0.4);
+    }
+
+    @keyframes neonFlicker {
+      0%   { text-shadow: 0 0 5px rgba(106,90,205,0.8), 0 0 10px rgba(106,90,205,0.6), 0 0 20px rgba(0,255,255,0.4); }
+      50%  { text-shadow: 0 0 10px rgba(255,105,180,0.9), 0 0 25px rgba(0,255,255,0.7), 0 0 35px rgba(106,90,205,0.8); }
+      100% { text-shadow: 0 0 5px rgba(106,90,205,0.8), 0 0 15px rgba(255,105,180,0.6), 0 0 25px rgba(0,255,255,0.5); }
     }
 
     /* 🎵 Кастомный плеер */
@@ -93,7 +106,7 @@
     .progress-container {
       width: 100%;
       height: 6px;
-      background: rgba(255,255,255,0.2); /* серый фон */
+      background: #2b2b2b; /* серый фон */
       border-radius: 3px;
       cursor: pointer;
       margin-top: 5px;
@@ -101,7 +114,7 @@
     .progress {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg,#6a5acd,#ff69b4);
+      background: linear-gradient(90deg,#6a5acd,#ff69b4); /* цветная заливка */
       border-radius: 3px;
       transition: width 0.1s linear;
     }
