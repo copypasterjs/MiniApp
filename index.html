@@ -8,36 +8,42 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
 
   <style>
-    /* Фон со звёздами */
     body {
       margin: 0;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: black;
       overflow: hidden;
+      background: black;
+      font-family: 'Segoe UI', sans-serif;
     }
 
-    .stars {
+    /* Фон с плавно двигающимися облаками */
+    .nebula {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
-      animation: moveStars 200s linear infinite;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(80, 80, 120, 0.4), transparent 70%),
+                  radial-gradient(circle at 70% 60%, rgba(120, 80, 120, 0.3), transparent 60%),
+                  radial-gradient(circle at 40% 80%, rgba(60, 100, 120, 0.3), transparent 70%),
+                  radial-gradient(circle at 80% 40%, rgba(100, 120, 160, 0.25), transparent 70%);
+      animation: moveNebula 120s linear infinite;
+      filter: blur(100px);
     }
 
-    @keyframes moveStars {
-      from { background-position: 0 0; }
-      to { background-position: -10000px 5000px; }
+    @keyframes moveNebula {
+      from { transform: translate(0, 0) scale(1); }
+      to { transform: translate(-25%, -25%) scale(1.2); }
     }
 
+    /* Карточка профиля */
     .card {
       position: relative;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(15px);
       border-radius: 20px;
-      padding: 20px;
+      padding: 25px;
       width: 320px;
       text-align: center;
       box-shadow: 0 8px 32px rgba(0,0,0,0.5);
@@ -45,31 +51,33 @@
     }
 
     .avatar {
-      width: 100px;
-      height: 100px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
-      border: 3px solid white;
+      border: 3px solid rgba(255, 255, 255, 0.7);
       margin: auto;
       display: block;
-      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+      box-shadow: 0 0 25px rgba(200,200,255,0.3);
     }
 
     .username {
-      margin-top: 15px;
-      font-size: 20px;
+      margin-top: 18px;
+      font-size: 22px;
       font-weight: bold;
       color: white;
     }
 
     .userid {
       font-size: 14px;
-      color: #ccc;
+      color: #bbb;
     }
   </style>
 </head>
 <body>
-  <div class="stars"></div>
+  <!-- Фон -->
+  <div class="nebula"></div>
 
+  <!-- Карточка -->
   <div class="card">
     <img id="avatar" src="" alt="avatar" class="avatar"/>
     <h2 id="username" class="username">@username</h2>
