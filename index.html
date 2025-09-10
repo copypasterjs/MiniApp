@@ -19,7 +19,6 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
-    /* ⭐ Звёздный фон */
     .stars {
       position: absolute;
       width: 100%;
@@ -124,17 +123,9 @@
       border-radius: 50%;
       border: 3px solid white;
       display: block;
-      box-shadow: 0 0 15px rgba(255,255,255,0.5);
       z-index: 1;
-    }
-    /* 🎵 Эквалайзер-обводка */
-    .avatar-wrapper.playing .avatar {
-      animation: pulseBorder 1s infinite;
-    }
-    @keyframes pulseBorder {
-      0%   { box-shadow: 0 0 10px rgba(255,255,255,0.4); }
-      50%  { box-shadow: 0 0 25px rgba(255,255,255,0.9); }
-      100% { box-shadow: 0 0 10px rgba(255,255,255,0.4); }
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+      transition: box-shadow 0.1s linear;
     }
 
     .username {
@@ -169,7 +160,7 @@
         <span id="duration">0:00</span>
       </div>
       <!-- 🎵 Твой mp3 рядом с index.html -->
-      <audio id="audio" src="overdose.mp3"></audio>
+      <audio id="audio" src="overdose.mp3" crossorigin="anonymous"></audio>
     </div>
 
     <!-- 🪐 Карточка -->
@@ -203,7 +194,7 @@
     const progress = document.getElementById("progress");
     const currentTimeEl = document.getElementById("currentTime");
     const durationEl = document.getElementById("duration");
-    const avatarWrap = document.getElementById("avatarWrap");
+    const avatar = document.getElementById("avatar");
 
     let isPlaying = false;
 
@@ -219,19 +210,17 @@
     audio.addEventListener("play", () => {
       isPlaying = true;
       playBtn.textContent = "⏸";
-      avatarWrap.classList.add("playing");
+      initAudioAnalyser();
     });
     audio.addEventListener("pause", () => {
       isPlaying = false;
       playBtn.textContent = "▶";
-      avatarWrap.classList.remove("playing");
     });
 
     audio.addEventListener("timeupdate", () => {
       const { currentTime, duration } = audio;
       progress.style.width = `${(currentTime / duration) * 100}%`;
 
-      // текущее время
       let minutes = Math.floor(currentTime / 60);
       let seconds = Math.floor(currentTime % 60);
       if (seconds < 10) seconds = `0${seconds}`;
@@ -245,13 +234,44 @@
       }
     });
 
-    // перемотка
     progressContainer.addEventListener("click", (e) => {
       const width = progressContainer.clientWidth;
       const clickX = e.offsetX;
       const duration = audio.duration;
       audio.currentTime = (clickX / width) * duration;
     });
+
+    // 🎧 Web Audio API для анализа баса
+    let audioCtx, analyser, source, dataArray;
+    function initAudioAnalyser() {
+      if (audioCtx) return; // уже инициализировано
+
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      source = audioCtx.createMediaElementSource(audio);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 256;
+
+      source.connect(analyser);
+      analyser.connect(audioCtx.destination);
+
+      dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+      animateBass();
+    }
+
+    function animateBass() {
+      requestAnimationFrame(animateBass);
+      analyser.getByteFrequencyData(dataArray);
+
+      // Усредняем низкие частоты (0–40)
+      let bass = 0;
+      for (let i = 0; i < 40; i++) bass += dataArray[i];
+      bass = bass / 40;
+
+      // Меняем свечение аватарки в зависимости от баса
+      const intensity = bass / 255; // 0 → 1
+      avatar.style.boxShadow = `0 0 ${10 + intensity*40}px rgba(255,255,255,${0.4 + intensity*0.6})`;
+    }
   </script>
 </body>
 </html>
