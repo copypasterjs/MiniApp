@@ -12,7 +12,8 @@
       margin: 0;
       height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: flex-start;
       align-items: center;
       background: black;
       overflow: hidden;
@@ -26,6 +27,7 @@
       height: 100%;
       background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
       animation: moveStars 200s linear infinite;
+      z-index: 0;
     }
     @keyframes moveStars {
       from { background-position: 0 0; }
@@ -38,6 +40,16 @@
       align-items: center;
       gap: 20px;
       z-index: 2;
+      margin-top: 60px;
+    }
+
+    /* 🔝 Заголовок */
+    .header {
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 20px;
+      z-index: 3;
     }
 
     /* 🎵 Кастомный плеер */
@@ -63,8 +75,8 @@
       margin-bottom: 8px;
     }
     .btn {
-      width: 35px;
-      height: 35px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       border: 2px solid white;
       display: flex;
@@ -73,6 +85,7 @@
       cursor: pointer;
       transition: 0.2s;
       user-select: none;
+      font-size: 18px;
     }
     .btn:hover {
       background: rgba(255,255,255,0.2);
@@ -80,15 +93,17 @@
     .progress-container {
       width: 100%;
       height: 6px;
-      background: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.2); /* серый фон */
       border-radius: 3px;
       cursor: pointer;
+      margin-top: 5px;
     }
     .progress {
       height: 100%;
       width: 0%;
       background: linear-gradient(90deg,#6a5acd,#ff69b4);
       border-radius: 3px;
+      transition: width 0.1s linear;
     }
     .time {
       display: flex;
@@ -143,6 +158,9 @@
 <body>
   <div class="stars"></div>
 
+  <!-- 🔝 Заголовок -->
+  <div class="header">AppData Music</div>
+
   <div class="wrapper">
     <!-- 🎶 Кастомный плеер -->
     <div class="player">
@@ -159,7 +177,6 @@
         <span id="currentTime">0:00</span>
         <span id="duration">0:00</span>
       </div>
-      <!-- 🎵 mp3 рядом с index.html -->
       <audio id="audio" src="overdose.mp3" crossorigin="anonymous"></audio>
     </div>
 
@@ -194,7 +211,6 @@
     const progress = document.getElementById("progress");
     const currentTimeEl = document.getElementById("currentTime");
     const durationEl = document.getElementById("duration");
-    const avatar = document.getElementById("avatar");
 
     let isPlaying = false;
 
@@ -243,7 +259,7 @@
 
     // 🎧 Web Audio API (анализ баса + цветное свечение)
     let audioCtx, analyser, source, dataArray;
-    let smoothBass = 0; // сглаживание
+    let smoothBass = 0;
 
     function initAudioAnalyser() {
       if (audioCtx) return;
@@ -264,28 +280,18 @@
       requestAnimationFrame(animateBass);
       analyser.getByteFrequencyData(dataArray);
 
-      // Усредняем низкие частоты (0–40)
       let bass = 0;
       for (let i = 0; i < 40; i++) bass += dataArray[i];
       bass = bass / 40;
 
-      // Сглаживание (инерция)
       smoothBass = smoothBass * 0.8 + bass * 0.2;
-
-      // интенсивность
       const intensity = smoothBass / 255;
 
-      // Цветное свечение
-      const colors = [
-        `rgba(106,90,205,${0.3 + intensity*0.5})`,  // фиолетовый
-        `rgba(255,105,180,${0.3 + intensity*0.5})`, // розовый
-        `rgba(100,200,255,${0.3 + intensity*0.5})`  // голубой
-      ];
-
+      const avatar = document.getElementById("avatar");
       avatar.style.boxShadow = `
-        0 0 ${10 + intensity*30}px ${colors[0]},
-        0 0 ${20 + intensity*40}px ${colors[1]},
-        0 0 ${30 + intensity*60}px ${colors[2]}
+        0 0 ${10 + intensity*30}px rgba(106,90,205,${0.3 + intensity*0.5}),
+        0 0 ${20 + intensity*40}px rgba(255,105,180,${0.3 + intensity*0.5}),
+        0 0 ${30 + intensity*60}px rgba(100,200,255,${0.3 + intensity*0.5})
       `;
     }
   </script>
