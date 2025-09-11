@@ -7,10 +7,15 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
 
-  <!-- ✅ Подключаем красивый шрифт Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <!-- ✅ Подключаем кастомный шрифт Samurai Team -->
   <style>
+    @font-face {
+      font-family: 'Samurai Team';
+      src: url('SamuraiTeam.ttf') format('truetype'); /* 🔹 Положи SamuraiTeam.ttf рядом с этим HTML */
+      font-weight: normal;
+      font-style: normal;
+    }
+
     body {
       margin: 0;
       height: 100vh;
@@ -21,13 +26,12 @@
       background: black;
       overflow: hidden;
 
-      /* ✅ Единый красивый шрифт */
-      font-family: 'Poppins', sans-serif;
+      /* ✅ Используем кастомный шрифт */
+      font-family: 'Samurai Team', sans-serif;
     }
 
-    /* Чтобы все элементы наследовали шрифт */
     * {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Samurai Team', sans-serif;
     }
 
     /* ⭐ Звёздный фон */
@@ -53,26 +57,26 @@
       margin-top: 60px;
     }
 
-    /* 🔝 Заголовок с неоном */
+    /* 🔝 Заголовок с мрачным градиентом */
     .header {
-      font-size: 24px;
-      font-weight: 700;
+      font-size: 26px;
+      font-weight: bold;
       margin-top: 20px;
       z-index: 3;
-      background: linear-gradient(90deg, #6a5acd, #00ffff, #ff69b4);
+      background: linear-gradient(90deg, #3a3a3a, #555, #222);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: neonFlicker 3s infinite alternate;
+      animation: darkFlicker 4s infinite alternate;
       text-shadow: 
-        0 0 5px rgba(106,90,205,0.8),
-        0 0 10px rgba(106,90,205,0.6),
-        0 0 20px rgba(0,255,255,0.4);
+        0 0 5px rgba(60,60,60,0.7),
+        0 0 10px rgba(80,80,80,0.6),
+        0 0 20px rgba(40,40,40,0.5);
     }
 
-    @keyframes neonFlicker {
-      0%   { text-shadow: 0 0 5px rgba(106,90,205,0.8), 0 0 10px rgba(106,90,205,0.6), 0 0 20px rgba(0,255,255,0.4); }
-      50%  { text-shadow: 0 0 10px rgba(255,105,180,0.9), 0 0 25px rgba(0,255,255,0.7), 0 0 35px rgba(106,90,205,0.8); }
-      100% { text-shadow: 0 0 5px rgba(106,90,205,0.8), 0 0 15px rgba(255,105,180,0.6), 0 0 25px rgba(0,255,255,0.5); }
+    @keyframes darkFlicker {
+      0%   { text-shadow: 0 0 6px rgba(80,80,80,0.6), 0 0 15px rgba(50,50,50,0.4); }
+      50%  { text-shadow: 0 0 10px rgba(100,100,100,0.7), 0 0 20px rgba(70,70,70,0.5); }
+      100% { text-shadow: 0 0 8px rgba(60,60,60,0.7), 0 0 18px rgba(40,40,40,0.6); }
     }
 
     /* 🎵 Кастомный плеер */
@@ -87,7 +91,7 @@
     }
     .track-title {
       font-size: 16px;
-      font-weight: 600;
+      font-weight: bold;
       margin-bottom: 8px;
       text-align: center;
     }
@@ -169,7 +173,7 @@
     .username {
       margin-top: 15px;
       font-size: 20px;
-      font-weight: 600;
+      font-weight: bold;
       color: white;
     }
     .userid {
