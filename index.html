@@ -7,14 +7,16 @@
     body {
       margin: 0;
       font-family: sans-serif;
-      background: #f5f5f5;
+      background: #121212;
+      color: #eee;
     }
     .header {
       display: flex;
       align-items: center;
       padding: 10px;
-      background: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background: #1e1e1e;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.6);
+      position: relative;
     }
     .avatar {
       width: 40px;
@@ -22,6 +24,7 @@
       border-radius: 8px;
       overflow: hidden;
       cursor: pointer;
+      flex-shrink: 0;
     }
     .avatar img {
       width: 100%;
@@ -30,13 +33,18 @@
     }
     .user-box {
       position: absolute;
-      top: 60px;
-      left: 10px;
-      background: #fff;
+      top: 10px;
+      left: 60px;
+      background: #1e1e1e;
       border-radius: 8px;
-      padding: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      padding: 10px 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
       display: none;
+      min-width: 180px;
+    }
+    .user-box div {
+      margin: 4px 0;
+      font-size: 14px;
     }
     .shop {
       margin: 20px;
@@ -45,16 +53,18 @@
       gap: 20px;
     }
     .item {
-      width: 200px;
+      width: 250px;
       height: 100px;
       border-radius: 12px;
       overflow: hidden;
       cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      transition: transform 0.2s ease;
+      background: #2a2a2a;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .item:hover {
       transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
     }
     .item img {
       width: 100%;
@@ -68,23 +78,22 @@
     <div class="avatar" id="avatar">
       <img id="userpic" src="" alt="avatar">
     </div>
-  </div>
-
-  <div class="user-box" id="userbox">
-    <div><b>Ник:</b> <span id="name"></span></div>
-    <div><b>Юзер:</b> <span id="username"></span></div>
-    <div><b>ID:</b> <span id="userid"></span></div>
+    <div class="user-box" id="userbox">
+      <div><b>Ник:</b> <span id="name"></span></div>
+      <div><b>Юзер:</b> <span id="username"></span></div>
+      <div><b>ID:</b> <span id="userid"></span></div>
+    </div>
   </div>
 
   <div class="shop">
     <div class="item" onclick="openProfile()">
-      <img src="https://picsum.photos/200/100?random=1" alt="">
+      <img src="box1.png" alt="box1">
     </div>
     <div class="item" onclick="openProfile()">
-      <img src="https://picsum.photos/200/100?random=2" alt="">
+      <img src="box2.png" alt="box2">
     </div>
     <div class="item" onclick="openProfile()">
-      <img src="https://picsum.photos/200/100?random=3" alt="">
+      <img src="box3.png" alt="box3">
     </div>
   </div>
 
