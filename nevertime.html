@@ -27,20 +27,20 @@
 
     .back-btn {
       background: #111;
-      color: #0ff;
+      color: #ccc;
       font-size: 14px;
       font-weight: 600;
-      border: 1px solid rgba(0,255,255,0.6);
+      border: 1px solid rgba(200,200,200,0.6);
       padding: 6px 12px;
       border-radius: 8px;
       cursor: pointer;
-      text-shadow: 0 0 8px rgba(0,255,255,0.8);
-      box-shadow: 0 0 12px rgba(0,255,255,0.3);
+      text-shadow: 0 0 6px rgba(200,200,200,0.8);
+      box-shadow: 0 0 10px rgba(200,200,200,0.2);
       transition: all 0.3s ease;
     }
     .back-btn:hover {
-      background: rgba(0,255,255,0.1);
-      box-shadow: 0 0 20px rgba(0,255,255,0.8);
+      background: rgba(255,255,255,0.05);
+      box-shadow: 0 0 15px rgba(200,200,200,0.6);
     }
 
     .user-info-box { display: flex; align-items: center; gap: 12px; }
@@ -79,56 +79,58 @@
     }
     .item:hover img { filter: brightness(1); }
 
-    /* badge */
+    /* серый бейдж */
     .badge {
       position: absolute;
       top: 10px; right: 10px;
-      background: #ff3030;
-      color: white; font-size: 13px; font-weight: bold;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 13px; font-weight: bold;
       padding: 6px 12px; border-radius: 8px;
       text-transform: uppercase; letter-spacing: 1px;
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
-      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 10px rgba(255,255,255,0.6);
+      animation: pulse 2s infinite;
       z-index: 2;
     }
     @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 15px rgba(255,0,0,0.9);}
-      50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(255,0,0,1);}
-      100% { transform: scale(1); box-shadow: 0 0 15px rgba(255,0,0,0.9);}
+      0% { box-shadow: 0 0 10px rgba(255,255,255,0.5);}
+      50% { box-shadow: 0 0 20px rgba(255,255,255,0.9);}
+      100% { box-shadow: 0 0 10px rgba(255,255,255,0.5);}
     }
 
     /* modal */
     .modal {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.7); display: none;
-      align-items: center; justify-content: center;
+      align-items: flex-end; justify-content: center;
       z-index: 100;
     }
     .modal-content {
-      background: rgba(30,30,40,0.9);
+      background: rgba(20,20,30,0.95);
       backdrop-filter: blur(15px);
-      padding: 20px;
-      border-radius: 15px;
+      padding: 25px;
+      border-radius: 20px 20px 0 0;
       text-align: center;
-      width: 90%; max-width: 350px;
-      box-shadow: 0 0 20px rgba(0,255,255,0.5);
-      animation: fadeIn 0.3s ease;
+      width: 100%; max-width: 420px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.3);
+      animation: slideUp 0.3s ease;
     }
-    .modal h2 { margin-bottom: 15px; font-size: 18px; }
+    .modal h2 { margin-bottom: 20px; font-size: 18px; color: #eee; }
+
     .currency-btn {
-      display: block; width: 100%; margin: 10px 0;
-      padding: 10px; border-radius: 8px; border: none;
-      background: rgba(0,255,255,0.1); color: #0ff;
+      display: block; width: 100%; margin: 12px 0;
+      padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.05); color: #fff;
       font-size: 16px; font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 0 8px rgba(0,255,255,0.3);
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
     }
     .currency-btn:hover {
-      background: rgba(0,255,255,0.3);
-      box-shadow: 0 0 15px rgba(0,255,255,0.7);
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 0 18px rgba(255,255,255,0.6);
     }
-    @keyframes fadeIn { from {opacity:0; transform:scale(0.9);} to {opacity:1; transform:scale(1);} }
+    @keyframes slideUp { from {transform: translateY(100%);} to {transform: translateY(0);} }
   </style>
 </head>
 <body>
@@ -145,7 +147,7 @@
 
   <div class="shop">
     <div class="item" onclick="openModal()">
-      <span class="badge">60₽ / 400тг / 50⭐️</span>
+      <span class="badge">60₽ / 400 ₸ / 50⭐️</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/nt1.png" alt="nt1">
     </div>
     <div class="item">
@@ -162,9 +164,9 @@
   <div class="modal" id="modal">
     <div class="modal-content">
       <h2>Выбери валюту</h2>
-      <button class="currency-btn" onclick="buy('Рубли')">60₽</button>
-      <button class="currency-btn" onclick="buy('Тенге')">400тг</button>
-      <button class="currency-btn" onclick="buy('Звезды')">50⭐️</button>
+      <button class="currency-btn" onclick="buy('Рубли')">💸 60₽</button>
+      <button class="currency-btn" onclick="buy('Тенге')">💰 400 ₸</button>
+      <button class="currency-btn" onclick="buy('Звезды')">⭐️ 50</button>
       <button class="currency-btn" onclick="closeModal()">❌ Отмена</button>
     </div>
   </div>
