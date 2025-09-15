@@ -14,8 +14,6 @@
       display: flex;
       flex-direction: column;
     }
-
-    /* header */
     .header {
       display: flex;
       align-items: center;
@@ -25,7 +23,6 @@
       backdrop-filter: blur(10px);
       box-shadow: 0 4px 20px rgba(0,0,0,0.6);
     }
-
     .avatar {
       width: 45px;
       height: 45px;
@@ -35,28 +32,10 @@
       border: 2px solid rgba(0,255,200,0.6);
       box-shadow: 0 0 8px rgba(0,255,200,0.6);
     }
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .userinfo {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .userinfo .name {
-      font-size: 16px;
-      font-weight: 600;
-      text-shadow: 0 0 8px rgba(0,255,200,0.6);
-    }
-    .userinfo .username {
-      font-size: 14px;
-      color: #aaa;
-    }
-
-    /* shop layout */
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .userinfo { display: flex; flex-direction: column; justify-content: center; }
+    .userinfo .name { font-size: 16px; font-weight: 600; text-shadow: 0 0 8px rgba(0,255,200,0.6); }
+    .userinfo .username { font-size: 14px; color: #aaa; }
     .shop {
       margin: 30px auto;
       display: flex;
@@ -66,8 +45,6 @@
       max-width: 700px;
       width: 100%;
     }
-
-    /* glassmorphism item */
     .item {
       position: relative;
       width: 90%;
@@ -75,12 +52,12 @@
       aspect-ratio: 5/2;
       border-radius: 15px;
       overflow: hidden;
-      cursor: default;
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255,255,255,0.1);
       box-shadow: 0 0 12px rgba(0,255,255,0.2);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
     }
     .item:hover {
       transform: translateY(-6px) scale(1.03);
@@ -91,19 +68,15 @@
       height: 100%;
       object-fit: cover;
       border-radius: 15px;
-      filter: brightness(0.85); /* вместо opacity */
+      filter: brightness(0.85);
       transition: filter 0.3s ease;
     }
-    .item:hover img {
-      filter: brightness(1);
-    }
-
-    /* badge */
+    .item:hover img { filter: brightness(1); }
     .badge {
       position: absolute;
       top: 10px;
       right: 10px;
-      background: #ff3030; /* ярко-красный */
+      background: #ff3030;
       color: white;
       font-size: 13px;
       font-weight: bold;
@@ -113,22 +86,12 @@
       letter-spacing: 1px;
       box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
       animation: pulse 1.5s infinite;
-      z-index: 2; /* поверх картинки */
+      z-index: 2;
     }
-
     @keyframes pulse {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
-      }
-      50% {
-        transform: scale(1.1);
-        box-shadow: 0 0 30px rgba(255, 0, 0, 1);
-      }
-      100% {
-        transform: scale(1);
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
-      }
+      0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);}
+      50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 0, 0, 1);}
+      100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);}
     }
   </style>
 </head>
@@ -144,7 +107,7 @@
   </div>
 
   <div class="shop">
-    <div class="item">
+    <div class="item" onclick="window.location.href='nevertime.html'">
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/box1.png" alt="box1">
     </div>
     <div class="item">
@@ -161,7 +124,6 @@
   <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
-
     const user = tg.initDataUnsafe.user;
     document.getElementById("name").innerText = user?.first_name || "Без имени";
     document.getElementById("username").innerText = user?.username ? "@" + user.username : "";
