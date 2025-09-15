@@ -69,18 +69,18 @@
 
     /* glassmorphism item */
     .item {
+      position: relative;
       width: 90%;
       max-width: 420px;
       aspect-ratio: 5/2;
       border-radius: 15px;
       overflow: hidden;
-      cursor: pointer;
+      cursor: default;
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255,255,255,0.1);
       box-shadow: 0 0 12px rgba(0,255,255,0.2);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      position: relative;
     }
     .item:hover {
       transform: translateY(-6px) scale(1.03);
@@ -97,6 +97,22 @@
     .item:hover img {
       opacity: 1;
     }
+
+    /* badge */
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 50, 50, 0.9);
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
   </style>
 </head>
 <body>
@@ -111,13 +127,15 @@
   </div>
 
   <div class="shop">
-    <div class="item" onclick="openProfile()">
+    <div class="item">
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/box1.png" alt="box1">
     </div>
-    <div class="item" onclick="openProfile()">
+    <div class="item">
+      <span class="badge">Скоро!</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/box2.png" alt="box2">
     </div>
-    <div class="item" onclick="openProfile()">
+    <div class="item">
+      <span class="badge">Скоро!</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/box3.png" alt="box3">
     </div>
   </div>
@@ -131,10 +149,6 @@
     document.getElementById("name").innerText = user?.first_name || "Без имени";
     document.getElementById("username").innerText = user?.username ? "@" + user.username : "";
     document.getElementById("userpic").src = user?.photo_url || "https://via.placeholder.com/40";
-
-    function openProfile() {
-      window.location.href = "https://t.me/frame_prince";
-    }
   </script>
 </body>
 </html>
