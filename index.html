@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Магазин ресурсов</title>
   <style>
     body {
@@ -47,14 +48,17 @@
       font-size: 14px;
     }
     .shop {
-      margin: 20px;
+      margin: 20px auto;
       display: flex;
       flex-direction: column;
       gap: 20px;
+      align-items: center;
+      max-width: 600px; /* ограничение для ПК */
     }
     .item {
-      width: 250px;
-      height: 100px;
+      width: 90%;          /* почти на весь экран мобилы */
+      max-width: 400px;    /* но на ПК не слишком огромные */
+      aspect-ratio: 5/2;   /* пропорции 250x100 */
       border-radius: 12px;
       overflow: hidden;
       cursor: pointer;
