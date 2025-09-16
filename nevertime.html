@@ -178,16 +178,19 @@
 
   <div class="shop">
     <!-- nt1 -->
-    <div class="item" onclick="openCurrencyModal()">
-      <span class="badge desc" onclick="event.stopPropagation(); openDesc()">Описание</span>
+    <div class="item" onclick="openCurrencyModal1()">
+      <span class="badge desc" onclick="event.stopPropagation(); openDesc1()">Описание</span>
       <span class="badge price">60₽ / 400 ₸ / 50⭐️</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/nt1.png" alt="nt1">
     </div>
+
     <!-- nt2 -->
-    <div class="item">
-      <span class="badge soon">Скоро!</span>
+    <div class="item" onclick="openCurrencyModal2()">
+      <span class="badge desc" onclick="event.stopPropagation(); openDesc2()">Описание</span>
+      <span class="badge price">120₽ / 800 ₸ / 100⭐️</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/nt2.png" alt="nt2">
     </div>
+
     <!-- nt3 -->
     <div class="item">
       <span class="badge soon">Скоро!</span>
@@ -195,10 +198,10 @@
     </div>
   </div>
 
-  <!-- modal описание -->
-  <div class="modal" id="descModal">
+  <!-- modal описание nt1 -->
+  <div class="modal" id="descModal1">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeDesc()">❌</span>
+      <span class="close-btn" onclick="closeDesc1()">❌</span>
       <h2>Описание Легитного Сета</h2>
       <ul>
         <li>Фулл Сет Властелина (Без шипов)</li>
@@ -219,15 +222,53 @@
     </div>
   </div>
 
-  <!-- modal валюты -->
-  <div class="modal" id="currencyModal">
+  <!-- modal описание nt2 -->
+  <div class="modal" id="descModal2">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeCurrencyModal()">❌</span>
+      <span class="close-btn" onclick="closeDesc2()">❌</span>
+      <h2>Описание Легитного Сета (расширенный)</h2>
+      <ul>
+        <li>Фулл Сет Властелина (Без шипов)</li>
+        <li>Меч Властелина</li>
+        <li>Сфера Виверны</li>
+        <li>Талисман Фантома</li>
+        <li>16 чарок</li>
+        <li>64 гепла</li>
+        <li>64 золотой морковки</li>
+        <li>64 хоруса</li>
+        <li>16 пёрлов</li>
+        <li>6 стаков опыта</li>
+        <li>10 тотемов</li>
+        <li>32 пластов</li>
+        <li>64 скорки</li>
+        <li>64 силки</li>
+        <li>2 пустых шалкера</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- modal валюты nt1 -->
+  <div class="modal" id="currencyModal1">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeCurrencyModal1()">❌</span>
       <h2>Выберите валюту</h2>
       <div style="display:flex; flex-direction:column; gap:12px; margin-top:15px;">
-        <button onclick="buy('рубли')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">60₽</button>
-        <button onclick="buy('тенге')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">400 ₸</button>
-        <button onclick="buy('звезды')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">50⭐️</button>
+        <button onclick="buy1('рубли')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">60₽</button>
+        <button onclick="buy1('тенге')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">400 ₸</button>
+        <button onclick="buy1('звезды')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">50⭐️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal валюты nt2 -->
+  <div class="modal" id="currencyModal2">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeCurrencyModal2()">❌</span>
+      <h2>Выберите валюту</h2>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:15px;">
+        <button onclick="buy2('рубли')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">120₽</button>
+        <button onclick="buy2('тенге')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">800 ₸</button>
+        <button onclick="buy2('звезды')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">100⭐️</button>
       </div>
     </div>
   </div>
@@ -241,23 +282,23 @@
     document.getElementById("username").innerText = user?.username ? "@" + user.username : "";
     document.getElementById("userpic").src = user?.photo_url || "https://via.placeholder.com/40";
 
-    // описание
-    function openDesc() {
-      document.getElementById("descModal").style.display = "flex";
-    }
-    function closeDesc() {
-      document.getElementById("descModal").style.display = "none";
+    // nt1
+    function openDesc1(){ document.getElementById("descModal1").style.display="flex"; }
+    function closeDesc1(){ document.getElementById("descModal1").style.display="none"; }
+    function openCurrencyModal1(){ document.getElementById("currencyModal1").style.display="flex"; }
+    function closeCurrencyModal1(){ document.getElementById("currencyModal1").style.display="none"; }
+    function buy1(currency){ 
+      let text = `Привет, хочу приобрести Легитный сет за ${currency} на NeverTime`;
+      window.open("https://t.me/frame_prince?text=" + encodeURIComponent(text), "_blank");
     }
 
-    // валюта
-    function openCurrencyModal() {
-      document.getElementById("currencyModal").style.display = "flex";
-    }
-    function closeCurrencyModal() {
-      document.getElementById("currencyModal").style.display = "none";
-    }
-    function buy(currency) {
-      let text = `Привет, хочу приобрести Легитный сет за ${currency} на NeverTime`;
+    // nt2
+    function openDesc2(){ document.getElementById("descModal2").style.display="flex"; }
+    function closeDesc2(){ document.getElementById("descModal2").style.display="none"; }
+    function openCurrencyModal2(){ document.getElementById("currencyModal2").style.display="flex"; }
+    function closeCurrencyModal2(){ document.getElementById("currencyModal2").style.display="none"; }
+    function buy2(currency){ 
+      let text = `Привет, хочу приобрести Легитный сет (расширенный) за ${currency} на NeverTime`;
       window.open("https://t.me/frame_prince?text=" + encodeURIComponent(text), "_blank");
     }
   </script>
