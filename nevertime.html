@@ -79,10 +79,10 @@
     }
     .item:hover img { filter: brightness(1); }
 
-    /* серый бейдж */
+    /* бейджи */
     .badge {
       position: absolute;
-      top: 10px; right: 10px;
+      top: 10px;
       background: rgba(255, 255, 255, 0.15);
       color: #fff;
       font-size: 13px; font-weight: bold;
@@ -92,6 +92,8 @@
       animation: pulse 2s infinite;
       z-index: 2;
     }
+    .badge.price { right: 10px; }
+    .badge.desc { left: 10px; cursor: pointer; }
     @keyframes pulse {
       0% { box-shadow: 0 0 10px rgba(255,255,255,0.5);}
       50% { box-shadow: 0 0 20px rgba(255,255,255,0.9);}
@@ -106,30 +108,36 @@
       z-index: 100;
     }
     .modal-content {
+      position: relative;
       background: rgba(20,20,30,0.95);
       backdrop-filter: blur(15px);
       padding: 25px;
       border-radius: 20px 20px 0 0;
-      text-align: center;
+      text-align: left;
       width: 100%; max-width: 420px;
       box-shadow: 0 0 25px rgba(255,255,255,0.3);
       animation: slideUp 0.3s ease;
     }
-    .modal h2 { margin-bottom: 20px; font-size: 18px; color: #eee; }
+    .modal h2 { margin-bottom: 15px; font-size: 18px; color: #eee; text-align: center; }
+    .modal ul { padding-left: 20px; }
+    .modal li { margin: 6px 0; color: #ddd; font-size: 14px; }
 
-    .currency-btn {
-      display: block; width: 100%; margin: 12px 0;
-      padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.4);
-      background: rgba(255,255,255,0.05); color: #fff;
-      font-size: 16px; font-weight: 600;
+    /* крестик */
+    .close-btn {
+      position: absolute;
+      top: 12px; right: 15px;
+      font-size: 20px; font-weight: bold;
+      color: #fff;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+      transition: transform 0.3s ease;
+      text-shadow: 0 0 8px rgba(255,255,255,0.8);
     }
-    .currency-btn:hover {
-      background: rgba(255,255,255,0.1);
-      box-shadow: 0 0 18px rgba(255,255,255,0.6);
+    .close-btn:hover {
+      transform: rotate(90deg) scale(1.2);
+      color: #ff4444;
+      text-shadow: 0 0 12px rgba(255,0,0,0.9);
     }
+
     @keyframes slideUp { from {transform: translateY(100%);} to {transform: translateY(0);} }
   </style>
 </head>
@@ -147,7 +155,8 @@
 
   <div class="shop">
     <div class="item" onclick="openModal()">
-      <span class="badge">60₽ / 400 ₸ / 50⭐️</span>
+      <span class="badge desc" onclick="event.stopPropagation(); openDesc()">Описание</span>
+      <span class="badge price">60₽ / 400 ₸ / 50⭐️</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/nt1.png" alt="nt1">
     </div>
     <div class="item">
@@ -160,14 +169,27 @@
     </div>
   </div>
 
-  <!-- modal -->
-  <div class="modal" id="modal">
+  <!-- modal описание -->
+  <div class="modal" id="descModal">
     <div class="modal-content">
-      <h2>Выбери валюту</h2>
-      <button class="currency-btn" onclick="buy('Рубли')">💸 60₽</button>
-      <button class="currency-btn" onclick="buy('Тенге')">💰 400 ₸</button>
-      <button class="currency-btn" onclick="buy('Звезды')">⭐️ 50</button>
-      <button class="currency-btn" onclick="closeModal()">❌ Отмена</button>
+      <span class="close-btn" onclick="closeDesc()">❌</span>
+      <h2>Описание Легитного Сета</h2>
+      <ul>
+        <li>Фулл Сет Властелина (Без шипов)</li>
+        <li>Меч Властелина</li>
+        <li>Сфера Виверны</li>
+        <li>8 чарок</li>
+        <li>32 гепла</li>
+        <li>64 золотые морковки</li>
+        <li>64 хоруса</li>
+        <li>16 пёрлов</li>
+        <li>4 стака опыта</li>
+        <li>6 тотемов</li>
+        <li>16 пластов</li>
+        <li>64 скорки</li>
+        <li>64 силки</li>
+        <li>1 пустой шалкер</li>
+      </ul>
     </div>
   </div>
 
@@ -180,15 +202,11 @@
     document.getElementById("username").innerText = user?.username ? "@" + user.username : "";
     document.getElementById("userpic").src = user?.photo_url || "https://via.placeholder.com/40";
 
-    function openModal() {
-      document.getElementById("modal").style.display = "flex";
+    function openDesc() {
+      document.getElementById("descModal").style.display = "flex";
     }
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-    function buy(currency) {
-      let text = `Привет, хочу приобрести Легитный сет за ${currency} на NeverTime`;
-      window.location.href = `https://t.me/frame_prince?text=${encodeURIComponent(text)}`;
+    function closeDesc() {
+      document.getElementById("descModal").style.display = "none";
     }
   </script>
 </body>
