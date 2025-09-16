@@ -69,6 +69,7 @@
       border: 1px solid rgba(255,255,255,0.1);
       box-shadow: 0 0 12px rgba(0,255,255,0.2);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
     }
     .item:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 0 20px rgba(0,255,255,0.6); }
     .item img {
@@ -176,15 +177,18 @@
   </div>
 
   <div class="shop">
-    <div class="item">
-      <span class="badge desc" onclick="openDesc()">Описание</span>
+    <!-- nt1 -->
+    <div class="item" onclick="openCurrencyModal()">
+      <span class="badge desc" onclick="event.stopPropagation(); openDesc()">Описание</span>
       <span class="badge price">60₽ / 400 ₸ / 50⭐️</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/nt1.png" alt="nt1">
     </div>
+    <!-- nt2 -->
     <div class="item">
       <span class="badge soon">Скоро!</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/nt2.png" alt="nt2">
     </div>
+    <!-- nt3 -->
     <div class="item">
       <span class="badge soon">Скоро!</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/nt3.png" alt="nt3">
@@ -215,6 +219,19 @@
     </div>
   </div>
 
+  <!-- modal валюты -->
+  <div class="modal" id="currencyModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeCurrencyModal()">❌</span>
+      <h2>Выберите валюту</h2>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:15px;">
+        <button onclick="buy('рубли')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">60₽</button>
+        <button onclick="buy('тенге')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">400 ₸</button>
+        <button onclick="buy('звезды')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">50⭐️</button>
+      </div>
+    </div>
+  </div>
+
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     const tg = window.Telegram.WebApp;
@@ -224,11 +241,24 @@
     document.getElementById("username").innerText = user?.username ? "@" + user.username : "";
     document.getElementById("userpic").src = user?.photo_url || "https://via.placeholder.com/40";
 
+    // описание
     function openDesc() {
       document.getElementById("descModal").style.display = "flex";
     }
     function closeDesc() {
       document.getElementById("descModal").style.display = "none";
+    }
+
+    // валюта
+    function openCurrencyModal() {
+      document.getElementById("currencyModal").style.display = "flex";
+    }
+    function closeCurrencyModal() {
+      document.getElementById("currencyModal").style.display = "none";
+    }
+    function buy(currency) {
+      let text = `Привет, хочу приобрести Легитный сет за ${currency} на NeverTime`;
+      window.open("https://t.me/frame_prince?text=" + encodeURIComponent(text), "_blank");
     }
   </script>
 </body>
