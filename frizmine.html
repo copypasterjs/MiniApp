@@ -198,8 +198,39 @@
     </div>
   </div>
 
-  <!-- Модалки описания / валют копируешь как в nevertime.html -->
-  <!-- Просто меняй названия и тексты под fm1 / fm2 -->
+  <!-- modal описание fm1 -->
+  <div class="modal" id="descModal1">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeDesc1()">❌</span>
+      <h2>Описание: Сет Хранителя</h2>
+      <ul>
+        <li>Фулл Сет Хранителя</li>
+        <li>Сфера Хранителя</li>
+        <li>64 чарки</li>
+        <li>64 гепла</li>
+        <li>По 16 донок</li>
+        <li>Трезубец</li>
+        <li>32 Дезориентации</li>
+        <li>32 Трапки</li>
+        <li>16 перлов</li>
+        <li>Элитры</li>
+        <li>2 стака фееров</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- modal валюты fm1 -->
+  <div class="modal" id="currencyModal1">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeCurrencyModal1()">❌</span>
+      <h2>Выберите валюту</h2>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:15px;">
+        <button onclick="buy('рубли', 'Сет Хранителя')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">200₽</button>
+        <button onclick="buy('тенге', 'Сет Хранителя')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">1000 ₸</button>
+        <button onclick="buy('звезды', 'Сет Хранителя')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">100⭐️</button>
+      </div>
+    </div>
+  </div>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
@@ -209,6 +240,19 @@
     document.getElementById("name").innerText = user?.first_name || "Без имени";
     document.getElementById("username").innerText = user?.username ? "@" + user.username : "";
     document.getElementById("userpic").src = user?.photo_url || "https://via.placeholder.com/40";
+
+    // описание fm1
+    function openDesc1() { document.getElementById("descModal1").style.display = "flex"; }
+    function closeDesc1() { document.getElementById("descModal1").style.display = "none"; }
+
+    // валюта fm1
+    function openCurrencyModal1() { document.getElementById("currencyModal1").style.display = "flex"; }
+    function closeCurrencyModal1() { document.getElementById("currencyModal1").style.display = "none"; }
+
+    function buy(currency, itemName) {
+      let text = `Привет, хочу приобрести ${itemName} за ${currency} на Frizmine`;
+      window.open("https://t.me/frame_prince?text=" + encodeURIComponent(text), "_blank");
+    }
   </script>
 </body>
 </html>
