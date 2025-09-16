@@ -80,29 +80,40 @@
 
     /* бейджи */
     .badge {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
       font-size: 13px; font-weight: bold;
       padding: 6px 12px; border-radius: 8px;
       text-transform: uppercase; letter-spacing: 1px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.6);
-      z-index: 2;
       position: absolute;
+      z-index: 2;
     }
     .badge.price {
       top: 10px;
       right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      box-shadow: 0 0 10px rgba(255,255,255,0.6);
       animation: pulse 2s infinite;
     }
     .badge.desc {
-      bottom: 10px;
-      right: 10px;              /* <-- ровно под ценой */
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(0,0,0,0.9);
       cursor: pointer;
       transition: all 0.3s ease;
     }
     .badge.desc:hover {
-      background: rgba(255, 255, 255, 0.25);
-      box-shadow: 0 0 15px rgba(255,255,255,0.9);
+      background: rgba(20,20,20,0.95);
+      box-shadow: 0 0 18px rgba(0,0,0,1);
+    }
+    .badge.soon {
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      box-shadow: 0 0 10px rgba(255,255,255,0.6);
+      animation: pulse 2s infinite;
     }
 
     @keyframes pulse {
@@ -166,16 +177,16 @@
 
   <div class="shop">
     <div class="item">
-      <span class="badge price">60₽ / 400 ₸ / 50⭐️</span>
       <span class="badge desc" onclick="openDesc()">Описание</span>
+      <span class="badge price">60₽ / 400 ₸ / 50⭐️</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/nt1.png" alt="nt1">
     </div>
     <div class="item">
-      <span class="badge">Скоро!</span>
+      <span class="badge soon">Скоро!</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/nt2.png" alt="nt2">
     </div>
     <div class="item">
-      <span class="badge">Скоро!</span>
+      <span class="badge soon">Скоро!</span>
       <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/nt3.png" alt="nt3">
     </div>
   </div>
