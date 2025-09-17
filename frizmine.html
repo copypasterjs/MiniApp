@@ -5,252 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Frizmine</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
-      color: #eee;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
+    body { background:#111; color:#eee; font-family:sans-serif; margin:0; }
     .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      background: rgba(30, 30, 30, 0.7);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 15px; background:rgba(30,30,30,0.7); backdrop-filter:blur(8px);
     }
-
     .back-btn {
-      background: #111;
-      color: #ccc;
-      font-size: 14px;
-      font-weight: 600;
-      border: 1px solid rgba(200,200,200,0.6);
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      text-shadow: 0 0 6px rgba(200,200,200,0.8);
-      box-shadow: 0 0 10px rgba(200,200,200,0.2);
-      transition: all 0.3s ease;
+      background:#111; color:#ccc; border:1px solid #555; padding:6px 12px; border-radius:6px; cursor:pointer;
     }
-    .back-btn:hover {
-      background: rgba(255,255,255,0.05);
-      box-shadow: 0 0 15px rgba(200,200,200,0.6);
-    }
-
-    .user-info-box { display: flex; align-items: center; gap: 12px; }
-    .avatar {
-      width: 45px; height: 45px;
-      border-radius: 10px; overflow: hidden; flex-shrink: 0;
-      border: 2px solid rgba(0,255,200,0.6); box-shadow: 0 0 8px rgba(0,255,200,0.6);
-    }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .userinfo { display: flex; flex-direction: column; }
-    .userinfo .name { font-size: 16px; font-weight: 600; text-shadow: 0 0 8px rgba(0,255,200,0.6); }
-    .userinfo .username { font-size: 14px; color: #aaa; }
-
-    .shop {
-      margin: 30px auto;
-      display: flex; flex-direction: column; gap: 25px;
-      align-items: center; max-width: 700px; width: 100%;
-    }
-    .item {
-      position: relative;
-      width: 90%; max-width: 420px;
-      aspect-ratio: 5/2;
-      border-radius: 15px; overflow: hidden;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 0 12px rgba(0,255,255,0.2);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      cursor: pointer;
-    }
-    .item:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 0 20px rgba(0,255,255,0.6); }
-    .item img {
-      width: 100%; height: 100%; object-fit: cover;
-      border-radius: 15px; filter: brightness(0.85);
-      transition: filter 0.3s ease;
-    }
-    .item:hover img { filter: brightness(1); }
-
-    /* бейджи */
-    .badge {
-      font-size: 13px; font-weight: bold;
-      padding: 6px 12px; border-radius: 8px;
-      text-transform: uppercase; letter-spacing: 1px;
-      position: absolute;
-      z-index: 2;
-    }
-    .badge.price {
-      top: 10px;
-      right: 10px;
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      box-shadow: 0 0 10px rgba(255,255,255,0.6);
-      animation: pulse 2s infinite;
-    }
-    .badge.desc {
-      top: 10px;
-      left: 10px;
-      background: rgba(0,0,0,0.8);
-      color: #fff;
-      box-shadow: 0 0 12px rgba(0,0,0,0.9);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .badge.desc:hover {
-      background: rgba(20,20,20,0.95);
-      box-shadow: 0 0 18px rgba(0,0,0,1);
-    }
-    .badge.soon {
-      top: 10px;
-      right: 10px;
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      box-shadow: 0 0 10px rgba(255,255,255,0.6);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 10px rgba(255,255,255,0.5);}
-      50% { box-shadow: 0 0 20px rgba(255,255,255,0.9);}
-      100% { box-shadow: 0 0 10px rgba(255,255,255,0.5);}
-    }
-
-    /* modal */
-    .modal {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7); display: none;
-      align-items: flex-end; justify-content: center;
-      z-index: 100;
-    }
-    .modal-content {
-      position: relative;
-      background: rgba(20,20,30,0.95);
-      backdrop-filter: blur(15px);
-      padding: 25px;
-      border-radius: 20px 20px 0 0;
-      text-align: left;
-      width: 100%; max-width: 420px;
-      box-shadow: 0 0 25px rgba(255,255,255,0.3);
-      animation: slideUp 0.3s ease;
-    }
-    .modal h2 { margin-bottom: 15px; font-size: 18px; color: #eee; text-align: center; }
-    .modal ul { padding-left: 20px; }
-    .modal li { margin: 6px 0; color: #ddd; font-size: 14px; }
-
-    /* крестик */
-    .close-btn {
-      position: absolute;
-      top: 12px; right: 15px;
-      font-size: 20px; font-weight: bold;
-      color: #fff;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      text-shadow: 0 0 8px rgba(255,255,255,0.8);
-    }
-    .close-btn:hover {
-      transform: rotate(90deg) scale(1.2);
-      color: #ff4444;
-      text-shadow: 0 0 12px rgba(255,0,0,0.9);
-    }
-
-    @keyframes slideUp { from {transform: translateY(100%);} to {transform: translateY(0);} }
+    .shop { display:flex; flex-direction:column; gap:20px; padding:20px; max-width:500px; margin:auto; }
+    .item { position:relative; border-radius:12px; overflow:hidden; background:rgba(255,255,255,0.05); cursor:pointer; }
+    .item img { width:100%; display:block; }
+    .badge.price { position:absolute; top:10px; right:10px; background:#222; color:#fff; padding:5px 10px; border-radius:6px; }
+    .badge.desc { position:absolute; top:10px; left:10px; background:#000; color:#fff; padding:5px 10px; border-radius:6px; cursor:pointer; }
+    .modal { position:fixed; inset:0; display:none; justify-content:center; align-items:center; background:rgba(0,0,0,0.8); }
+    .modal-content { background:#222; padding:20px; border-radius:12px; max-width:400px; color:#fff; }
+    .close-btn { cursor:pointer; float:right; }
   </style>
 </head>
 <body>
   <div class="header">
     <button class="back-btn" onclick="window.location.href='index.html'">← Назад</button>
-    <div class="user-info-box">
-      <div class="avatar"><img id="userpic" src="" alt="avatar"></div>
-      <div class="userinfo">
-        <div class="name" id="name"></div>
-        <div class="username" id="username"></div>
-      </div>
-    </div>
+    <h2>Frizmine</h2>
   </div>
 
-  <div class="shop">
-    <!-- fm1 -->
-    <div class="item" onclick="openCurrencyModal1()">
-      <span class="badge desc" onclick="event.stopPropagation(); openDesc1()">Описание</span>
-      <span class="badge price">200₽ / 1000 ₸ / 100⭐️</span>
-      <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/fm1.png" alt="fm1">
-    </div>
+  <div class="shop" id="shop"></div>
 
-    <!-- fm2 -->
-    <div class="item" onclick="openCurrencyModal2()">
-      <span class="badge desc" onclick="event.stopPropagation(); openDesc2()">Описание</span>
-      <span class="badge price">Цена тут</span>
-      <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/fm2.png" alt="fm2">
-    </div>
-
-    <!-- fm3 -->
-    <div class="item">
-      <span class="badge soon">Скоро!</span>
-      <img src="https://raw.githubusercontent.com/copypasterjs/MiniApp/main/fm3.png" alt="fm3">
-    </div>
-  </div>
-
-  <!-- modal описание fm1 -->
-  <div class="modal" id="descModal1">
+  <!-- модалка описания -->
+  <div class="modal" id="descModal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeDesc1()">❌</span>
-      <h2>Описание: Сет Хранителя</h2>
-      <ul>
-        <li>Фулл Сет Хранителя</li>
-        <li>Сфера Хранителя</li>
-        <li>64 чарки</li>
-        <li>64 гепла</li>
-        <li>По 16 донок</li>
-        <li>Трезубец</li>
-        <li>32 Дезориентации</li>
-        <li>32 Трапки</li>
-        <li>16 перлов</li>
-        <li>Элитры</li>
-        <li>2 стака фееров</li>
-      </ul>
+      <span class="close-btn" onclick="closeDesc()">❌</span>
+      <h2 id="descTitle"></h2>
+      <ul id="descList"></ul>
     </div>
   </div>
 
-  <!-- modal валюты fm1 -->
-  <div class="modal" id="currencyModal1">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeCurrencyModal1()">❌</span>
-      <h2>Выберите валюту</h2>
-      <div style="display:flex; flex-direction:column; gap:12px; margin-top:15px;">
-        <button onclick="buy('рубли', 'Сет Хранителя')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">200₽</button>
-        <button onclick="buy('тенге', 'Сет Хранителя')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">1000 ₸</button>
-        <button onclick="buy('звезды', 'Сет Хранителя')" style="padding:10px; border:none; border-radius:8px; background:#333; color:#fff; cursor:pointer;">100⭐️</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-    const user = tg.initDataUnsafe.user;
-    document.getElementById("name").innerText = user?.first_name || "Без имени";
-    document.getElementById("username").innerText = user?.username ? "@" + user.username : "";
-    document.getElementById("userpic").src = user?.photo_url || "https://via.placeholder.com/40";
+    const shopEl = document.getElementById("shop");
+    const descModal = document.getElementById("descModal");
+    const descTitle = document.getElementById("descTitle");
+    const descList = document.getElementById("descList");
 
-    // описание fm1
-    function openDesc1() { document.getElementById("descModal1").style.display = "flex"; }
-    function closeDesc1() { document.getElementById("descModal1").style.display = "none"; }
+    // грузим JSON
+    fetch("https://raw.githubusercontent.com/ТВОЙ_АКК/MiniApp/main/products.json")
+      .then(r => r.json())
+      .then(data => {
+        const products = data.frizmine; // <<< тут уже frizmine
+        products.forEach((p, i) => {
+          const div = document.createElement("div");
+          div.className = "item";
+          div.innerHTML = `
+            <span class="badge desc" onclick="event.stopPropagation();openDesc(${i})">Описание</span>
+            <span class="badge price">${p.price}</span>
+            <img src="https://raw.githubusercontent.com/ТВОЙ_АКК/MiniApp/main/${p.image}" alt="">
+          `;
+          div.onclick = () => buy(p.name, p.price);
+          shopEl.appendChild(div);
+        });
+        window.products = products;
+      });
 
-    // валюта fm1
-    function openCurrencyModal1() { document.getElementById("currencyModal1").style.display = "flex"; }
-    function closeCurrencyModal1() { document.getElementById("currencyModal1").style.display = "none"; }
+    function openDesc(i) {
+      const p = window.products[i];
+      descTitle.innerText = p.name;
+      descList.innerHTML = p.description.map(d => `<li>${d}</li>`).join("");
+      descModal.style.display = "flex";
+    }
+    function closeDesc() { descModal.style.display = "none"; }
 
-    function buy(currency, itemName) {
-      let text = `Привет, хочу приобрести ${itemName} за ${currency} на Frizmine`;
+    function buy(name, price) {
+      const text = `Привет, хочу приобрести ${name} (${price}) на Frizmine`;
       window.open("https://t.me/frame_prince?text=" + encodeURIComponent(text), "_blank");
     }
   </script>
