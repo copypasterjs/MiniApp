@@ -35,7 +35,7 @@
     const descList = document.getElementById("descList");
 
     // грузим JSON с GitHub
-    fetch("https://raw.githubusercontent.com/ТВОЙ_АКК/MiniApp/main/products.json")
+    fetch("https://raw.githubusercontent.com/copypasterjs/MiniApp/main/products.json")
       .then(r => r.json())
       .then(data => {
         const products = data.nevertime; // грузим категорию nevertime
